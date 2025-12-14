@@ -1,4 +1,5 @@
 from flask import Flask
+import os
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from flask_mail import Mail
@@ -9,7 +10,9 @@ from extensions import db
 # Initialize the app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'a-very-secret-key-that-should-be-changed-in-production'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///D:/Chidnand Khot/site.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, 'site.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['WTF_CSRF_TIME_LIMIT'] = None  # Disable CSRF time limit
 
